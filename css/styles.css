@@ -58,4 +58,12 @@ body {
   top: 0;
   left: 0;
   min-height: 300px;
+  min-width: 300px;
+}
+
+.carousel-caption {
+  right: 0;
+  top: 0;
+  left: 300px;
+  width: calc(100% - 300px);
 }
