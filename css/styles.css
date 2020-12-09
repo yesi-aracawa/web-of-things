@@ -67,3 +67,12 @@ body {
   left: 300px;
   width: calc(100% - 300px);
 }
+
+.bg-color-white {
+  color: rgb(252, 250, 250);
+  margin: 0 auto;
+}
+
+.modal-header .close {
+  margin: -1rem -1rem auto;
+}
