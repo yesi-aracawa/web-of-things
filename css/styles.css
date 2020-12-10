@@ -76,3 +76,10 @@ body {
 .modal-header .close {
   margin: -1rem -1rem auto;
 }
+
+#carouselButton {
+  right: 0px;
+  position: absolute;
+  bottom: 0px;
+  z-index: 1;
+}
