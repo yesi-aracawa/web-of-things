@@ -77,6 +77,11 @@ body {
   margin: -1rem -1rem auto;
 }
 
+.modal-title {
+  margin: 0 auto;
+  color: #fff;
+}
+
 #carouselButton {
   right: 0px;
   position: absolute;
