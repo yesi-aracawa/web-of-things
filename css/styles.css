@@ -54,11 +54,17 @@ body {
   width: calc(100% - 300px); }
 
 .modal-title {
-  color: #fff;
   margin: 0 auto; }
 
-.modal-header .close {
-  margin: -1rem -1rem auto; }
+.modal-header {
+  color: #fffaf0;
+  background-color: #512da8; }
+  .modal-header .close {
+    margin: -1rem -1rem auto;
+    color: #fffaf0; }
+
+.modal-body {
+  background-color: #d1c4e9; }
 
 #carouselButton {
   right: 0px;
