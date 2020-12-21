@@ -3,6 +3,14 @@
 let gulp = require("gulp");
 let sass = require("gulp-sass");
 let browserSync = require("browser-sync");
+let del = require("del");
+let imagemin = require("gulp-imagemin");
+let uglify = require("gulp-uglify");
+let usemin = require("gulp-usemin");
+let rev = require("gulp-rev");
+let cleanCss = require("gulp-clean-css");
+let flatmap = require("gulp-flatmap");
+let htmlmin = require("gulp-htmlmin");
 
 sass.compiler = require("node-sass");
 
@@ -30,4 +38,52 @@ gulp.task("browser-sync", () => {
 // Default task
 gulp.task("default", gulp.parallel("browser-sync"), () => {
   gulp.start("sass:watch");
+});
+
+// Clean
+gulp.task("clean", () => {
+  return del(["dist"]);
+});
+
+gulp.task("copyfonts", () => {
+  gulp
+    .src("./node_modules/font-awesome/fonts/**/*.{ttf,woff,eof,svg}*")
+    .pipe(gulp.dest("./dist/fonts"));
+});
+
+// Images
+gulp.task("imagemin", () => {
+  return gulp
+    .src("img/*.{png,jpg,gif}")
+    .pipe(
+      imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })
+    )
+    .pipe(gulp.dest("dist/img"));
+});
+
+gulp.task("usemin", () => {
+  return gulp
+    .src("./*.html")
+    .pipe(
+      flatmap((stream, file) => {
+        return stream.pipe(
+          usemin({
+            css: [rev()],
+            html: [
+              () => {
+                return htmlmin({ collapseWhitespace: true });
+              },
+            ],
+            js: [uglify(), rev()],
+            inlinejs: [uglify()],
+            inlinecss: [cleanCss(), "concat"],
+          })
+        );
+      })
+    )
+    .pipe(gulp.dest("dist/"));
+});
+
+gulp.task("build", gulp.parallel("clean"), () => {
+  gulp.start("copyfonts", "imagemin", "usemin");
 });
